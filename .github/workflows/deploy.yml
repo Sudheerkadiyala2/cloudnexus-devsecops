@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  #for learning purpose 
+      - main
 
 jobs:
   deploy:
@@ -22,11 +22,25 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          cd cloudnexus-devsecops || git clone https://github.com/Sudheerkadiyala2/cloudnexus-devsecops.git
+
+          # Clone repo if not exists
+          if [ ! -d "cloudnexus-devsecops" ]; then
+            git clone https://github.com/Sudheerkadiyala2/cloudnexus-devsecops.git
+          fi
+
           cd cloudnexus-devsecops
-          git pull
-          docker stop cloudnexus-app || true
-          docker rm cloudnexus-app || true
-          docker build -t cloudnexus-app -f docker/Dockerfile .
-          docker run -d -p 5000:5000 --name cloudnexus-app cloudnexus-app
+
+          # Pull latest code
+          git pull origin main
+
+          # Stop any container using port 5000
+          sudo docker ps -q --filter "publish=5000" | xargs -r sudo docker stop
+          sudo docker ps -aq --filter "publish=5000" | xargs -r sudo docker rm
+
+          # Build Docker image
+          sudo docker build -t cloudnexus-app -f docker/Dockerfile .
+
+          # Run container
+          sudo docker run -d -p 5000:5000 --name cloudnexus-app cloudnexus-app
+
         EOF
