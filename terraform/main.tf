@@ -5,7 +5,7 @@ resource "aws_security_group" "sg" {
        from_port=22
        to_port=22
        protocol="tcp"
-       cidr_blocks=["0.0.0.0/0"]
+       cidr_blocks=["0.0.0.0/0"] #for learning purpose ..Have to restrict in production
     }
     ingress{
         from_port=5000
