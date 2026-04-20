@@ -13,6 +13,30 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        args: >
+          -Dsonar.projectKey=your_project_key
+          -Dsonar.organization=your_org
+          -Dsonar.sources=.
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: SonarCloud Quality Gate
+      uses: SonarSource/sonarcloud-quality-gate-action@v1
+      timeout-minutes: 5
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: Trivy FS Scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        format: 'table'
+        exit-code: '1'
+        severity: 'CRITICAL,HIGH'  
+
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
