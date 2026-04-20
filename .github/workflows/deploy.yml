@@ -71,8 +71,6 @@ jobs:
           sudo docker ps -q --filter "publish=5000" | xargs -r sudo docker stop
           sudo docker ps -aq --filter "publish=5000" | xargs -r sudo docker rm
 
-          sudo docker build -t cloudnexus-app -f docker/Dockerfile .
-
           sudo docker run -d -p 5000:5000 --name cloudnexus-app cloudnexus-app
 
         EOF
