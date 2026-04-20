@@ -5,13 +5,13 @@ resource "aws_security_group" "sg" {
        from_port=22
        to_port=22
        protocol="tcp"
-       cidr_blocks=["0.0.0.0/0"]
+       cidr_blocks=["49.206.9.2380/32"]
     }
     ingress{
         from_port=5000
         to_port=5000
         protocol="tcp"
-        cidr_blocks=["0.0.0.0/0"]
+        cidr_blocks=["0.0.0.0/0"]  #public access required for demo..Have to restrict in production
     }
     egress{
         from_port=0
