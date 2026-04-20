@@ -40,7 +40,7 @@ jobs:
     - name: Build Docker Image
       run: docker build -t cloudnexus-app -f docker/Dockerfile . 
 
-     - name: Trivy Image Scan
+    - name: Trivy Image Scan
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'cloudnexus-app'
