@@ -12,15 +12,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
+    - name: Debug Files
+      run: |
+          ls -la
+          cat sonar-project.properties  
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v2
-      env:
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       SONAR_PROJECT_KEY: sudheerkadiyala2_cloudnexus-devsecops
-       SONAR_ORGANIZATION: sudheerkadiyala2
       with:
-        projectBaseDir: .  
+        projectBaseDir: .
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+        
     - name: SonarCloud Quality Gate
       uses: SonarSource/sonarcloud-github-action@v2
       with:
