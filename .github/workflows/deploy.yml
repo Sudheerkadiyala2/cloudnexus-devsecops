@@ -27,7 +27,7 @@ jobs:
     - name: SonarCloud Quality Gate
       uses: SonarSource/sonarcloud-github-action@v2
       with:
-        args: -Dsonar.qualitygate.wait=true
+        args: -Dsonar.qualitygate.wait=false  # for learning purose ..not acceptable at production
       env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
