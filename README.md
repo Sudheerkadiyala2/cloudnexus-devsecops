@@ -139,7 +139,7 @@ cloudnexus/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/cloudnexus.git
+git clone https://github.com/Sudheerkadiyala2/cloudnexus-devsecops.git
 cd cloudnexus
 
 # 2. Provision infrastructure
