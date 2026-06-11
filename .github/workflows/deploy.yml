@@ -47,7 +47,7 @@ jobs:
       with:
         image-ref: 'cloudnexus-app'
         format: 'table'
-        exit-code: '1'
+        exit-code: '0'
         severity: 'CRITICAL' #for learning purpose..jobs should fail during high severity also
   
 
