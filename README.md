@@ -9,7 +9,23 @@
 [![Security](https://img.shields.io/badge/Security-Trivy%20%2B%20SonarCloud-4E9BCD)](https://trivy.dev/)
 
 ---
+### Note :-💰 Cost Optimization During Development
 
+To keep AWS costs low and stay within the AWS Free Tier, I intentionally destroy the EC2 instance after completing my testing.
+
+Since a new EC2 instance receives a different public IP address each time the infrastructure is recreated, the `EC2_HOST` GitHub Secret must be updated before rerunning the deployment workflow.
+
+This means that GitHub Actions deployment jobs may fail if the workflow is triggered before the secret is updated with the new IP address.
+
+In a production environment, this would typically be addressed by using:
+
+- Elastic IP (EIP)
+- Route 53 DNS
+- AWS Systems Manager (SSM)
+- A self-hosted GitHub Actions runner
+- Automated deployment target updates
+
+For this learning project, manually updating the deployment host is an intentional trade-off to minimize AWS costs while still gaining hands-on experience with a complete DevSecOps pipeline.
 ## 🧭 What Is This?
 
 CloudNexus is a **fully automated DevSecOps pipeline** that takes a Python Flask application from source code to a live, running server on AWS — with **security baked in at every step**, not bolted on at the end.
